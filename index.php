@@ -1,5 +1,6 @@
 <?php
-require 'conexao.php'; 
+session_start();
+include "conexao.php"; 
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -12,6 +13,7 @@ require 'conexao.php';
   <body>
     <?php include('navbar.php'); ?>
     <div class="container">
+      <?php include('mensagem.php') ?>
         <div class="row">
             <div class="col">
                     <form action="acoes.php" method="POST">
@@ -28,11 +30,11 @@ require 'conexao.php';
                             <input type="email" name="email" class="form-control" placeholder=" Digite o seu e-mail" required> 
                          </div>
                          <div class="form-group mt-2">
-                            <label for="telefone" class="form-label">Contato</label>
+                            <label for="telefone" class="form-label">Telefone</label>
                             <input type="tel" name="telefone" class="form-control" placeholder=" Digite o seu contatos" required> 
                          </div>
                          <div class="form-group mt-3">
-                           <button href="create_usuario" type="submit" class="btn btn-success">Salvar</button>
+                           <button name="create_usuario" type="submit" class="btn btn-success">Salvar</button>
                          </div>
                     </form>
                     <div class="container-mt-4">
@@ -47,28 +49,40 @@ require 'conexao.php';
                           <thead>
                             <tr>
                               <th>ID</th>
-                              <th>nome</th>
-                              <th>endereco</th>
-                              <th>email</th>
-                              <th>telefone</th>
-                              <th></th>
+                              <th>Nome</th>
+                              <th>Endereco</th>
+                              <th>Email</th>
+                              <th>Telefone</th>
+                              <th>Ações</th>
                             </tr>
                           </thead>
                           <tbody>
+                            <?php
+                            $sql = 'SELECT * FROM pessoas';
+                            $pessoas = mysqli_query($conexao, $sql);
+                            if (mysqli_num_rows($pessoas) > 0){
+                              foreach($pessoas as $pessoa) {
+                            ?>
                             <tr>
-                              <td>1</td>
-                              <td>teste</td>
-                              <td>teste@gmail.com</td>
-                              <td>rua tal do tal</td>
-                              <td>13997</td>
-                              <td><a href="" class="btn btn-secondary btn-sm">Visualizar</a>
-                               <a href="" class="btn btn-success btn-sm">Editar</a>
-                               <form action="" method="POST" class="D-inline">
-                                <button type="submit" name="delete_usuario" value="1" class="btn btn-danger btn-sm mt-1">
+                              <td><?=$pessoa['ID']?></td>
+                              <td><?=$pessoa['nome']?></td>
+                              <td><?=$pessoa['endereco']?></td>
+                              <td><?=$pessoa['email']?></td>
+                              <td><?=$pessoa['telefone']?></td>
+                              <td><a href="usuarios-view.php?ID=<?=$pessoa['ID']?>" class="btn btn-secondary btn-sm">Visualizar</a>
+                               <a href="usuarios-edit.php?ID=<?=$pessoa['ID']?>" class="btn btn-success btn-sm">Editar</a>
+                               <form action="acoes.php" method="POST" class="D-inline">
+                                <button onclick="return confirm('Tem certeza que deseja excluir esse cadastro?')" type="submit" name="delete_usuario" value="<?=$pessoa['ID']?>" class="btn btn-danger btn-sm">
                                   Excluir</button>
                                </form>
                               </td>
                             </tr>
+                            <?php
+                            } 
+                           } else {
+                            echo '<h5>Nenhum cadastro encontrado</h5>';
+                           }
+                           ?>
                           </tbody>
                         </table>
                       </div>
