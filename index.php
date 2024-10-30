@@ -9,6 +9,7 @@ include "conexao.php";
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Projeto PHP</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
  </head>
   <body>
     <?php include('navbar.php'); ?>
@@ -69,7 +70,7 @@ include "conexao.php";
                               <td><?=$pessoa['endereco']?></td>
                               <td><?=$pessoa['email']?></td>
                               <td><?=$pessoa['telefone']?></td>
-                              <td><a href="usuarios-view.php?ID=<?=$pessoa['ID']?>" class="btn btn-secondary btn-sm">Visualizar</a>
+                              <td><a href="usuarios-view.php?ID=<?=$pessoa['ID']?>" class="btn btn-secondary btn-sm"><span class="bi-eye-fill"</span>&nbsp;Visualizar</a>
                                <a href="usuarios-edit.php?ID=<?=$pessoa['ID']?>" class="btn btn-success btn-sm">Editar</a>
                                <form action="acoes.php" method="POST" class="D-inline">
                                 <button onclick="return confirm('Tem certeza que deseja excluir esse cadastro?')" type="submit" name="delete_usuario" value="<?=$pessoa['ID']?>" class="btn btn-danger btn-sm">
