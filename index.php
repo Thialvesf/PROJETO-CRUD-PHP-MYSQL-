@@ -71,9 +71,9 @@ include "conexao.php";
                               <td><?=$pessoa['email']?></td>
                               <td><?=$pessoa['telefone']?></td>
                               <td><a href="usuarios-view.php?ID=<?=$pessoa['ID']?>" class="btn btn-secondary btn-sm"><span class="bi-eye-fill"</span>&nbsp;Visualizar</a>
-                               <a href="usuarios-edit.php?ID=<?=$pessoa['ID']?>" class="btn btn-success btn-sm">Editar</a>
+                               <a href="usuarios-edit.php?ID=<?=$pessoa['ID']?>" class="btn btn-success btn-sm"><span class="bi-pencil-fill"</span>&nbsp;Editar</a>
                                <form action="acoes.php" method="POST" class="D-inline">
-                                <button onclick="return confirm('Tem certeza que deseja excluir esse cadastro?')" type="submit" name="delete_usuario" value="<?=$pessoa['ID']?>" class="btn btn-danger btn-sm">
+                                <button onclick="return confirm('Tem certeza que deseja excluir esse cadastro?')" type="submit" name="delete_usuario" value="<?=$pessoa['ID']?>" class="btn btn-danger btn-sm"><span class="bi-trash3-fill"</span>&nbsp;
                                   Excluir</button>
                                </form>
                               </td>
